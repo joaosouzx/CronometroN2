@@ -10,16 +10,23 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
     Button start,stop,reset;
     private long timeWhenStopped = 0;
-    Date horaAtual;
-    String hora;
+    String horaAtual2;
+    int qtdPause;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,32 +64,58 @@ public class MainActivity extends AppCompatActivity {
                 timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
                 chrono.stop();
 
-//                horaAtual = new Date();
-//                hora = new SimpleDateFormat("HH:mm:ss").format(horaAtual);
+                // Recupera a data e hora de parada do cronômetro
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+                sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
+                String currentDateandTime = sdf.format(new Date());
 
-                if (timeWhenStopped<=400){
-                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                    alertDialog.setTitle("Dica");
-                    alertDialog.setMessage("Vire de lado");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }else if(timeWhenStopped>=400 && timeWhenStopped<=1000){
-                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                    alertDialog.setTitle("Dica");
-                    alertDialog.setMessage("Sente-se");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
+                String hist1 = currentDateandTime.substring(0,10);
+                String hist2 = currentDateandTime.substring(11,19);
+
+                String horaAtual = currentDateandTime;
+
+                final TextView historico5 = findViewById(R.id.historico5);
+                historico5.setText(horaAtual2);
+
+                qtdPause++;
+
+                for(int i=0; qtdPause>i; i++){
+                    horaAtual2 = (hist1+" "+hist2);
+                    final TextView historico4 = findViewById(R.id.historico4);
+                    historico4.setText(horaAtual2);
                 }
+
+
+
+
+
+
+
+
+                // Dicas para as contrações
+//                if (timeWhenStopped>=-4000){
+//                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+//                    alertDialog.setTitle("Dica");
+//                    alertDialog.setMessage("Vire de lado");
+//                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//                    alertDialog.show();
+//                }else if(timeWhenStopped>=-10000){
+//                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+//                    alertDialog.setTitle("Dica");
+//                    alertDialog.setMessage("Sente-se");
+//                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//                    alertDialog.show();
+//                }
             }
         });
 
