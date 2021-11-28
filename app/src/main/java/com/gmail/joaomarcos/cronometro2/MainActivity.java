@@ -69,11 +69,14 @@ public class MainActivity extends AppCompatActivity {
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
                 String currentDateandTime = sdf.format(new Date());
 
+                //separa a data e a hora em 2 variáveis
                 String hist1 = currentDateandTime.substring(0,10);
                 String hist2 = currentDateandTime.substring(11,19);
 
+                //junta a data e hora em 1 varíável para printar
                 String horaAtual = currentDateandTime;
 
+                //printa
                 final TextView historico5 = findViewById(R.id.historico5);
                 historico5.setText(horaAtual2);
 
@@ -84,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
                     final TextView historico4 = findViewById(R.id.historico4);
                     historico4.setText(horaAtual2);
                 }
-
-
 
 
 
